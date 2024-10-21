@@ -4,7 +4,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "45 15 * * 1-5" # 每天的 00:00 在周一到周五运行
+    - cron: "50 7 * * 1-5" # 每天的 00:00 在周一到周五运行
 jobs:
   send-message:
     runs-on: ubuntu-latest
