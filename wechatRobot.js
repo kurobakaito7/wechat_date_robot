@@ -31,7 +31,8 @@ async function sendMessage() {
     const message = {
       msgtype: "text",
       text: {
-        content: "注意！今天是23号的前一个工作日~",
+        // content: "注意！今天是23号的前一个工作日~",
+        content: "这是一条测试消息~"
       },
     };
 
@@ -44,14 +45,15 @@ async function sendMessage() {
 
 // 运行
 async function run() {
-  const nearestWorkday = getNearestWorkday();
+  /* const nearestWorkday = getNearestWorkday();
   console.log(`Attention! today is: ${nearestWorkday}`);
 
   if (moment().isSameOrBefore(nearestWorkday, "day")) {
     await sendMessage();
   } else {
     console.log("No message sent today.");
-  }
+  } */
+  await sendMessage();
 }
 
 run();
