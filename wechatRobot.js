@@ -7,22 +7,18 @@ const webhook_url =
 
 // 计算每个月 23 号（含）前的最近一个工作日
 function getNearestWorkday() {
-  const today = moment();
   const targetDate = moment().date(23);
 
-  if (today.isAfter(targetDate)) {
-    targetDate.add(1, "month");
+  if (targetDate.isoWeekday() === 7) {
+    // 如果目标日期是周日，则将其向前推两天
+    targetDate.subtract(2, "days");
+  }else if (targetDate.isoWeekday() === 1) {
+    // 如果目标日期是周一，则将其向前推三天
+    targetDate.subtract(3, "days");
   }
-
-  const diff = targetDate.diff(today, "days");
-  const weekdays = Math.floor(diff / 7) * 5;
-  const weekendDays = diff % 7;
-
-  if (weekendDays > 5) {
-    return targetDate.subtract(weekendDays - 5, "days").format("YYYY-MM-DD");
-  } else {
-    return targetDate.format("YYYY-MM-DD");
-  }
+  // 其余都直接减去一天
+  targetDate.subtract(1, "days");
+  return targetDate.format("YYYY-MM-DD");
 }
 
 // 发送消息的函数
@@ -31,7 +27,8 @@ async function sendMessage() {
     const message = {
       msgtype: "text",
       text: {
-        content: "又到了该填工资表领窝囊费的日子了（尖叫扭曲爬行）",
+        // content: "又到了该填工资表领窝囊费的日子了（尖叫扭曲爬行）",
+        content: "又来测试代码了",
       },
     };
 
@@ -45,10 +42,11 @@ async function sendMessage() {
 // 运行
 async function run() {
   const nearestWorkday = getNearestWorkday();
-  console.log(`Attention! today is: ${nearestWorkday}`);
+  console.log(`Attention! nearestWorkday is: ${nearestWorkday}`);
 
-  if (moment().isSameOrBefore(nearestWorkday, "day")) {
+  if (moment().isSame(nearestWorkday, "day")) {
     await sendMessage();
+    console.log("今天就是23号的前一个工作日");
   } else {
     console.log("No message sent today.");
   }
