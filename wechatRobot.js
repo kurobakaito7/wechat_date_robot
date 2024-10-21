@@ -27,8 +27,7 @@ async function sendMessage() {
     const message = {
       msgtype: "text",
       text: {
-        // content: "又到了该填工资表领窝囊费的日子了（尖叫扭曲爬行）",
-        content: "又来测试代码了",
+        content: "又到了该填工资表领窝囊费的日子了（尖叫扭曲爬行）",
       },
     };
 
