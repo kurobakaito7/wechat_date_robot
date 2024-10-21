@@ -1,0 +1,12 @@
+name: WeChat Robot
+on:
+  schedule:
+    - cron: '0 0 * * 1-5' # 每天的 00:00 在周一到周五运行
+jobs:
+  send-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Send message
+        run: node wechatRobot.js
