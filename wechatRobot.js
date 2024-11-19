@@ -27,7 +27,7 @@ async function sendMessage() {
     const message = {
       msgtype: "text",
       text: {
-        content: "又到了该填工资表领窝囊费的日子了（尖叫扭曲爬行）",
+        content: "今天是23号的前一个工作日，快去填工资表准备领窝囊费了（尖叫扭曲爬行）",
       },
     };
 
@@ -38,6 +38,23 @@ async function sendMessage() {
   }
 }
 
+async function sendDate() {
+  try {
+    const message = {
+      msgtype: "text",
+      text: {
+        content: `今天是${moment().format("YYYY-MM-DD")}`,
+      },
+    };
+
+    const sendResponse = await axios.post(webhook_url, message);
+    console.log(sendResponse.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
 // 运行
 async function run() {
   const nearestWorkday = getNearestWorkday();
@@ -47,7 +64,8 @@ async function run() {
     await sendMessage();
     console.log("今天就是23号的前一个工作日");
   } else {
-    console.log("No message sent today.");
+    await sendDate();
+    console.log(`today is ${moment().format("YYYY-MM-DD")}`);
   }
 }
 
