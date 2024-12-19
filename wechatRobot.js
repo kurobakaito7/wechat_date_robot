@@ -15,9 +15,10 @@ function getNearestWorkday() {
   }else if (targetDate.isoWeekday() === 1) {
     // 如果目标日期是周一，则将其向前推三天
     targetDate.subtract(3, "days");
+  }else{
+    // 其余都直接减去一天
+    targetDate.subtract(1, "days");
   }
-  // 其余都直接减去一天
-  targetDate.subtract(1, "days");
   return targetDate.format("YYYY-MM-DD");
 }
 
